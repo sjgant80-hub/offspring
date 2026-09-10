@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Offspring — the two-parent fork, gated</title>
+<meta name="description" content="Merge two independent systems into one descendant that carries both lineages — but only when the coupling between the parents is sovereign. A merged, extractive, starved, or frozen coupling bears nothing.">
+<style>
+  :root{
+    --bg:#0b0f0c; --panel:#121a14; --panel2:#16211a; --line:#25342a;
+    --ink:#e9f2ec; --dim:#8ba597; --accent:#6fe39a; --accent2:#a8ecc4; --gold:#e6c05f;
+    --alive:#6fe39a; --dead:#ff7a6b; --chip:#152219; --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,Segoe UI,Roboto,sans-serif;padding:0 0 4rem}
+  .wrap{max-width:900px;margin:0 auto;padding:0 1.25rem}
+  header{padding:2.4rem 0 1rem}
+  h1{font-size:1.85rem;letter-spacing:-.01em} h1 .hl{color:var(--accent)}
+  .sub{color:var(--dim);margin-top:.5rem;max-width:48rem}
+  h2{font-size:1.05rem;margin:1.7rem 0 .6rem}
+  .thesis{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:.9rem 1.1rem;margin:1.1rem 0;color:var(--dim)}
+  .thesis strong{color:var(--ink)}
+  .parents{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:700px){.parents{grid-template-columns:1fr}}
+  .pcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem}
+  .pcard h3{font:700 .78rem var(--mono);letter-spacing:.05em;color:var(--accent);margin-bottom:.5rem;text-transform:uppercase}
+  .pcard label{display:block;font-size:.78rem;color:var(--dim);margin:.5rem 0 .2rem}
+  .pcard input{width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:.4rem .6rem;font:.85rem var(--mono)}
+  .couple{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;margin-top:1rem}
+  .couple h3{font:700 .78rem var(--mono);letter-spacing:.05em;color:var(--gold);margin-bottom:.5rem;text-transform:uppercase}
+  .cpresets{display:flex;gap:.45rem;flex-wrap:wrap}
+  .cpresets button{background:var(--chip);color:var(--dim);border:1px solid var(--line);border-radius:8px;font-size:.8rem;font-weight:600;padding:.4rem .8rem;cursor:pointer}
+  .cpresets button.sel{border-color:var(--gold);color:var(--gold)}
+  .cpresets button:hover{filter:brightness(1.2)}
+  .cstate{font:.82rem var(--mono);color:var(--dim);margin-top:.55rem}
+  button.go{background:var(--accent);color:#0a2417;border:0;border-radius:10px;padding:.75rem 1.7rem;font-weight:800;font-size:1.02rem;cursor:pointer;margin:1.1rem 0}
+  button.go:hover{filter:brightness(1.1)}
+  .out{border-radius:12px;padding:1.15rem 1.25rem;margin:.4rem 0;border:1px solid var(--line)}
+  .born{background:linear-gradient(160deg,#12231a,#101b15);border-color:#2c6b46}
+  .refused{background:#1e1513;border-color:#5c2f28}
+  .verdict{font:800 1.3rem var(--mono);display:flex;align-items:center;gap:.55rem}
+  .born .verdict{color:var(--alive)} .refused .verdict{color:var(--dead)}
+  .reason{color:var(--dim);margin-top:.4rem;font-size:.92rem}
+  .child{margin-top:.8rem;display:grid;gap:.35rem;font:.86rem var(--mono)}
+  .child .row{display:flex;gap:.6rem}
+  .child .k{color:var(--dim);min-width:6.5rem} .child .v{color:var(--ink)}
+  .tag{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:5px;padding:.05rem .4rem;margin:.1rem .2rem .1rem 0;font-size:.8rem}
+  .tag.from-a{color:var(--accent2)} .tag.from-b{color:var(--gold)} .tag.from-both{color:var(--ink);border-color:var(--accent)}
+  .again{background:var(--chip);color:var(--dim);border:1px solid var(--line);border-radius:8px;font-size:.82rem;font-weight:600;padding:.45rem .9rem;cursor:pointer;margin-top:.6rem}
+  .again:hover{filter:brightness(1.2);color:var(--ink)}
+  code{font:.88em var(--mono);background:var(--chip);padding:.08em .35em;border-radius:4px}
+  footer{margin-top:2.2rem;padding-top:1.1rem;border-top:1px solid var(--line);color:var(--dim);font-size:.85rem}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Offspring <span class="hl">·</span> the two-parent fork, gated</h1>
+  <p class="sub">Merge two independent systems into one descendant that carries <strong>both</strong> lineages — but only when the coupling between the parents is <strong>sovereign</strong> (both stay themselves, mutual, regenerating). A coupling that dissolves one into the other (merged), drains one (extractive), is too loose (starved), or is static (frozen) bears <strong>nothing</strong>: the birth is refused, with the reason. You cannot breed a descendant from a dead join.</p>
+</header>
+
+<h2>Two parents</h2>
+<div class="parents">
+  <div class="pcard">
+    <h3>Parent A</h3>
+    <label>id</label><input id="a-id" value="nexus">
+    <label>traits it carries (comma-separated)</label><input id="a-genome" value="warp, quasicrystal">
+    <label>ancestors (comma-separated)</label><input id="a-lineage" value="root">
+  </div>
+  <div class="pcard">
+    <h3>Parent B</h3>
+    <label>id</label><input id="b-id" value="sididy">
+    <label>traits it carries (comma-separated)</label><input id="b-genome" value="dodeca, witness">
+    <label>ancestors (comma-separated)</label><input id="b-lineage" value="seed">
+  </div>
+</div>
+
+<div class="couple">
+  <h3>The coupling between them</h3>
+  <div class="cpresets">
+    <button data-c="sov" class="sel">sovereign (alive)</button>
+    <button data-c="mrg">merged</button>
+    <button data-c="ext">extractive</button>
+    <button data-c="str">starved</button>
+    <button data-c="frz">frozen</button>
+  </div>
+  <div class="cstate" id="cstate"></div>
+</div>
+
+<button class="go" id="breed">breed →</button>
+<div id="out"></div>
+
+<h2>The birth law</h2>
+<div class="thesis">
+  A child is content-addressed by its parents and its inherited traits, so the same two parents always breed the <strong>same</strong> child (one birth, not many), and the order of the parents does not matter. Its lineage names <strong>both</strong> parents and every ancestor — the fork-tree carries the whole bloodline. The fitness gate is <a href="https://github.com/sjgant80-hub/couple-gate">couple-gate</a> exactly: a coupling at the healthy band bears; anything outside it does not.
+</div>
+
+<footer>
+  <p>MIT · <a href="https://github.com/sjgant80-hub/offspring">source &amp; mutation gate</a> — the decision is the gated <code>kernel.mjs</code> verbatim (injected, CI-diffed); the fitness law is <a href="https://github.com/sjgant80-hub/couple-gate">couple-gate</a> vendored in. Pairs with <a href="https://github.com/sjgant80-hub/the-wallet">the-wallet</a> (identity &amp; lineage) and <a href="https://github.com/sjgant80-hub/didy-wire">didy-wire</a> (the sovereign exchange). Pure client-side.</p>
+</footer>
+</div>
+
+<script type="module">
+// ⟦KERNEL-BEGIN⟧ generated from kernel.mjs by make-page.mjs — do not edit here
+// offspring — a two-parent fork with a fitness precondition. Merge two independent systems
+// into one descendant that carries BOTH lineages — but only when the coupling between the
+// two parents is healthy. A child is born only from a SOVEREIGN coupling (both parents stay
+// themselves and are genuinely joined). A coupling that dissolves one into the other (merged),
+// drains one (extractive), is too loose (starved), or is static (frozen) bears NOTHING — the
+// birth is refused, with the reason. You cannot breed a descendant from a dead join.
+//
+// The fitness law is couple-gate's classifyCouple, VENDORED verbatim below so this kernel is
+// self-contained and the gate covers the whole decision. offspring adds only the birth:
+// a child's identity, its two-parent lineage, and its inherited genome.
+//
+// Pure and total: never throws on garbage; returns { ok: false, why }. Guards one-per-line.
+
+// ===== couple-gate — the fitness law (vendored verbatim from sjgant80-hub/couple-gate) =====
+
+const FLOOR = 0.618;    // below this the coupling is too loose to be real — starved
+const CEIL = 0.687;     // above this the two dissolve into one — merged
+const FLOW_TOL = 0.382; // value balance wider than this one way is a drain — extractive
+
+const isObj = (v) => typeof v === 'object' && v !== null && !Array.isArray(v);
+const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
+const isBool = (v) => typeof v === 'boolean';
+
+function classifyCouple(m) {
+  if (!isObj(m)) return { ok: false, why: 'reads { share, identity, exitA, exitB, flow, regen }' };
+  if (!isNum(m.share)) return { ok: false, why: 'share must be a number' };
+  if (m.share < 0 || m.share > 1) return { ok: false, why: 'share must be within zero to one' };
+  if (!isNum(m.flow)) return { ok: false, why: 'flow must be a number' };
+  if (m.flow < -1 || m.flow > 1) return { ok: false, why: 'flow must be within minus one to one' };
+  if (!isBool(m.identity)) return { ok: false, why: 'identity must be a boolean' };
+  if (!isBool(m.exitA)) return { ok: false, why: 'exitA must be a boolean' };
+  if (!isBool(m.exitB)) return { ok: false, why: 'exitB must be a boolean' };
+  if (!isBool(m.regen)) return { ok: false, why: 'regen must be a boolean' };
+
+  const overCeil = m.share > CEIL;
+  const neitherExits = !m.exitA && !m.exitB;
+  const oneExits = m.exitA !== m.exitB;
+  const drains = Math.abs(m.flow) > FLOW_TOL;
+  const belowFloor = m.share < FLOOR;
+
+  let verdict, reason;
+  if (!m.identity || overCeil || neitherExits) {
+    verdict = 'MERGED';
+    if (!m.identity) reason = 'the two are no longer distinguishable — identity dissolved';
+    else if (overCeil) reason = 'coupling strength is over the ceiling — the two fused into one';
+    else reason = 'neither side can leave — captured, held as one';
+  } else if (drains || oneExits) {
+    verdict = 'EXTRACTIVE';
+    if (drains) reason = 'value runs one way past the tolerance — one side drains the other';
+    else reason = 'only one side can leave — the trapped side is captured by the free one';
+  } else if (belowFloor) {
+    verdict = 'STARVED';
+    reason = 'coupling strength is under the floor — too loose to be a real connection';
+  } else if (!m.regen) {
+    verdict = 'FROZEN';
+    reason = 'coupled and sovereign, but nothing regenerates — a static, dead-held connection';
+  } else {
+    verdict = 'SOVEREIGN_COUPLED';
+    reason = 'strength in the band, identity kept, both can leave, flow mutual, regenerating';
+  }
+
+  return {
+    ok: true, verdict, alive: verdict === 'SOVEREIGN_COUPLED', reason,
+    share: m.share, flow: m.flow, floor: FLOOR, ceiling: CEIL, flowTol: FLOW_TOL,
+  };
+}
+
+/** Is this coupling fit to bear a child? True only for a sovereign couple. */
+function canBreed(coupling) {
+  const r = classifyCouple(coupling);
+  if (!r.ok) return false;
+  return r.alive;
+}
+
+// ===== offspring — the birth =====
+
+// A deterministic content-address for a child, derived from its inputs (FNV-1a, then a second
+// pass so the same inputs always yield the same id and different inputs diverge). This is an
+// IDENTITY DERIVATION, not a cryptographic signature — a real deployment signs the birth with
+// the-wallet's Ed25519. Kept pure so the kernel is testable without crypto.
+function fnv(str, basis) {
+  let h = basis >>> 0;
+  for (let i = 0; i < str.length; i += 1) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return (h >>> 0).toString(16).padStart(8, '0');
+}
+function childId(canon) {
+  return fnv(canon, 0x811c9dc5) + fnv(canon + '#', 0x811c9dc5);
+}
+
+// A parent is { id, lineage: [ancestor ids], genome: [traits], generation? }. Validated, never guessed.
+function validParent(p, label) {
+  if (!isObj(p)) return label + ' must be an object { id, lineage, genome }';
+  if (typeof p.id !== 'string' || p.id.length === 0) return label + '.id must be a non-empty string';
+  if (!Array.isArray(p.lineage)) return label + '.lineage must be an array of ancestor ids';
+  if (!p.lineage.every((x) => typeof x === 'string')) return label + '.lineage entries must be strings';
+  if (!Array.isArray(p.genome)) return label + '.genome must be an array of traits';
+  if (!p.genome.every((x) => typeof x === 'string')) return label + '.genome entries must be strings';
+  if (p.generation !== undefined && !(Number.isInteger(p.generation) && p.generation >= 0)) {
+    return label + '.generation, if given, must be a non-negative integer';
+  }
+  return null;
+}
+
+const uniqSort = (arr) => Array.from(new Set(arr)).sort();
+
+/**
+ * breed(parentA, parentB, coupling) — merge two lineages into a child, if the coupling is fit.
+ *
+ *  · A node cannot breed with itself (no pair to cross — a monopole bears nothing).
+ *  · The coupling is classified by couple-gate. A child is born ONLY from SOVEREIGN_COUPLED;
+ *    a MERGED / EXTRACTIVE / STARVED / FROZEN coupling is REFUSED the birth (born: false) with
+ *    the verdict and reason — not an error, a refusal.
+ *  · The child is SYMMETRIC in its parents (breed(A,B) and breed(B,A) yield the identical child)
+ *    and DETERMINISTIC (the same two parents always breed the same child — one birth, not many):
+ *      id         content-address of the sorted parent ids + the inherited genome
+ *      parents    the two parent ids, sorted
+ *      lineage    both parents + both their lineages, deduped and sorted (the fork-tree names all)
+ *      genome     the union of both parents' genomes, deduped and sorted (it carries both bloodlines)
+ *      generation one past the deeper parent
+ */
+function breed(parentA, parentB, coupling) {
+  const eA = validParent(parentA, 'parentA');
+  if (eA) return { ok: false, why: eA };
+  const eB = validParent(parentB, 'parentB');
+  if (eB) return { ok: false, why: eB };
+  if (parentA.id === parentB.id) {
+    return { ok: false, why: 'a node cannot breed with itself — there is no pair to cross' };
+  }
+  const r = classifyCouple(coupling);
+  if (!r.ok) return { ok: false, why: 'coupling: ' + r.why };
+
+  if (!r.alive) {
+    return { ok: true, born: false, verdict: r.verdict, reason: r.reason };
+  }
+
+  const parents = [parentA.id, parentB.id].sort();
+  const genome = uniqSort([...parentA.genome, ...parentB.genome]);
+  const lineage = uniqSort([parentA.id, parentB.id, ...parentA.lineage, ...parentB.lineage]);
+  const genA = parentA.generation === undefined ? 0 : parentA.generation;
+  const genB = parentB.generation === undefined ? 0 : parentB.generation;
+  const generation = Math.max(genA, genB) + 1;
+  const id = childId(JSON.stringify({ p: parents, g: genome }));
+
+  return {
+    ok: true, born: true, verdict: 'SOVEREIGN_COUPLED',
+    child: { id, parents, lineage, genome, generation },
+  };
+}
+
+/** Flatten a node's full ancestry (its own lineage), deduped and sorted — the pedigree. */
+function bloodline(node) {
+  if (!isObj(node)) return { ok: false, why: 'node must be an object with a lineage' };
+  if (!Array.isArray(node.lineage)) return { ok: false, why: 'node.lineage must be an array' };
+  if (!node.lineage.every((x) => typeof x === 'string')) return { ok: false, why: 'lineage entries must be strings' };
+  return { ok: true, ancestors: uniqSort(node.lineage) };
+}
+// ⟦KERNEL-END⟧
+
+const $ = (id) => document.getElementById(id);
+const COUPLINGS = {
+  sov: { share: 0.65, identity: true, exitA: true, exitB: true, flow: 0, regen: true },
+  mrg: { share: 0.92, identity: false, exitA: false, exitB: false, flow: 0, regen: true },
+  ext: { share: 0.65, identity: true, exitA: true, exitB: false, flow: 0.7, regen: true },
+  str: { share: 0.30, identity: true, exitA: true, exitB: true, flow: 0, regen: true },
+  frz: { share: 0.65, identity: true, exitA: true, exitB: true, flow: 0, regen: false },
+};
+let chosen = 'sov';
+let current = null;   // the last-born child, so it can breed again
+
+const list = (s) => s.split(',').map((x) => x.trim()).filter(Boolean);
+const readParent = (k) => ({ id: $(k + '-id').value.trim(), genome: list($(k + '-genome').value), lineage: list($(k + '-lineage').value) });
+
+function selCoupling(c) {
+  chosen = c;
+  document.querySelectorAll('.cpresets button').forEach((b) => b.classList.toggle('sel', b.dataset.c === c));
+  const r = classifyCouple(COUPLINGS[c]);
+  $('cstate').textContent = (r.alive ? '✓ ' : '✗ ') + r.verdict.replace('_', ' ') + ' — ' + r.reason;
+}
+document.querySelectorAll('.cpresets button').forEach((b) => b.addEventListener('click', () => selCoupling(b.dataset.c)));
+
+function tagClass(trait, a, b) {
+  const inA = a.includes(trait), inB = b.includes(trait);
+  return inA && inB ? 'from-both' : inA ? 'from-a' : 'from-b';
+}
+
+function show(res, a, b) {
+  const out = $('out');
+  if (!res.ok) { out.className = 'out refused'; out.innerHTML = '<div class="verdict">✗ invalid</div><div class="reason">' + res.why + '</div>'; return; }
+  if (!res.born) {
+    out.className = 'out refused';
+    out.innerHTML = '<div class="verdict">✗ REFUSED — ' + res.verdict.replace('_', ' ') + '</div><div class="reason">' + res.reason + ' · no child is born from a dead join.</div>';
+    return;
+  }
+  current = res.child;
+  const c = res.child;
+  const ag = a ? a.genome : [], bg = b ? b.genome : [];
+  const genomeTags = c.genome.map((t) => '<span class="tag ' + tagClass(t, ag, bg) + '">' + t + '</span>').join('');
+  const lineageTags = c.lineage.map((x) => '<span class="tag">' + x + '</span>').join('');
+  out.className = 'out born';
+  out.innerHTML =
+    '<div class="verdict">✓ born — a sovereign coupling</div>' +
+    '<div class="child">' +
+      '<div class="row"><span class="k">id</span><span class="v">' + c.id + '</span></div>' +
+      '<div class="row"><span class="k">parents</span><span class="v">' + c.parents.join(' × ') + '</span></div>' +
+      '<div class="row"><span class="k">generation</span><span class="v">' + c.generation + '</span></div>' +
+      '<div class="row"><span class="k">traits</span><span class="v">' + genomeTags + '</span></div>' +
+      '<div class="row"><span class="k">bloodline</span><span class="v">' + lineageTags + '</span></div>' +
+    '</div>' +
+    '<button class="again" id="again">breed this child with a fresh partner →</button>';
+  $('again').addEventListener('click', breedAgain);
+}
+
+function doBreed() {
+  const a = readParent('a'), b = readParent('b');
+  show(breed(a, b, COUPLINGS[chosen]), a, b);
+}
+function breedAgain() {
+  if (!current) return;
+  // give the child a fresh, distinct partner and breed on the current coupling
+  const partner = { id: 'partner-' + current.generation, genome: ['fresh-trait'], lineage: [] };
+  show(breed(current, partner, COUPLINGS[chosen]), current, partner);
+}
+$('breed').addEventListener('click', doBreed);
+['a-id', 'a-genome', 'a-lineage', 'b-id', 'b-genome', 'b-lineage'].forEach((id) => $(id).addEventListener('input', doBreed));
+
+selCoupling('sov');
+doBreed();
+</script>
+</body>
+</html>
